@@ -27,7 +27,15 @@ class TogaSymfony14Apache
       $body .= "    Order allow,deny\n";
       $body .= "    Allow from all\n";
       $body .= "  </Directory>\n";
-      $body .= "</VirtualHost>";
+      # $body .= "</VirtualHost>\n";
+      
+      #add
+      $body .= '  LogFormat "%h %l %u %t \"%r\" %>s %b" common' . "\n";
+      $body .= "  CustomLog /share/toga/toga_data/users/" . $userName . "/logs/access_log common\n";
+      $body .= "  LogLevel warn\n";
+      $body .= "  ErrorLog /share/toga/toga_data/users/" . $userName . "/logs/error_log\n";
+      $body .= "</VirtualHost>\n";
+      
 
       TogaFilesystem::writeFile($controller, TogaSettings::getDataDir() . "/tmp/conf/$userName$projectName.conf", $body);
       exec("mv " . TogaSettings::getDataDir() . "/tmp/conf/$userName$projectName.conf " . TogaSettings::getDataDir() . "/settings/sites-available/$userName$projectName.conf");

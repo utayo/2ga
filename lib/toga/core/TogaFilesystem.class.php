@@ -196,6 +196,15 @@ class TogaFilesystem
     self::mkdir($controller, $path);
     $path = TogaSettings::getDataDir() . "/users/" . $userName . "/projects";
     self::mkdir($controller, $path);
+    
+    # add
+    $path = TogaSettings::getDataDir() . "/users/" . $userName . "/logs";
+    self::mkdir($controller, $path);
+    
+    $path = TogaSettings::getDataDir() . "/users/" . $userName . "/logs/access_log";
+    self::writeFile($controller, $path);
+    $path = TogaSettings::getDataDir() . "/users/" . $userName . "/logs/error_log";
+    self::writeFile($controller, $path);
   }
 
   static function checkName($string)
